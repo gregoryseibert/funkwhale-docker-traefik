@@ -1,0 +1,30 @@
+debug = true
+checkNewVersion = true
+logLevel = "INFO"
+
+defaultEntryPoints = ["http", "https"]
+
+[web]
+address = ":8080"
+  [web.auth.basic]
+  users = ["user:passwordhashtogenerate"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+      entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+  [entryPoints.https.tls]
+    [[entryPoints.https.tls.certificates]]
+    certFile = "/cert.pem"
+    keyFile = "/privkey.pem"
+
+[docker]
+  endpoint = "unix:///var/run/docker.sock"
+  domain = "example.com"
+  watch = true
+  exposedByDefault = false
+  usebindportip = true
+  swarmMode = false
