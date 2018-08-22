@@ -105,16 +105,10 @@ services:
       - traefik.frontend.rule=Host:music.example.com
       - traefik.docker.network=proxy
       - traefik.port=80
-    ports:
-      - 8881:80
-    expose: 
-      - "8080"
     networks:
       - proxy
       - internal
-
       
 networks:
   internal:
   proxy:
-
