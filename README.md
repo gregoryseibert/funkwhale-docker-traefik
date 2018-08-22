@@ -1,6 +1,10 @@
 # funkwhale-docker-traefik
 A collection of files for a funkwhale setup with docker and traefik reverse proxy
 
+The funkwhale-frontend has to be in the same network as traefik (as well as other containers, which should be reverse proxied with traefik).
+And the funkwhale-frontend also has to be in the same network with at least the funkwhale api.
+But I have all funkwhale containers in the same network, just in case.
+
 What you have to / should edit:
 
 **.env**
