@@ -20,6 +20,8 @@ services:
       - traefik.backend=traefik
       - traefik.frontend.rule=Host:traefik.example.com
       - traefik.port=8080
+    networks:
+      - proxy
 
   postgres:
     restart: unless-stopped
@@ -27,6 +29,8 @@ services:
     image: postgres:9.4
     volumes:
       - /var/data/funkwhale/data/postgres:/var/lib/postgresql/data
+    networks:
+      - internal
 
   redis:
     restart: unless-stopped
@@ -34,6 +38,8 @@ services:
     image: redis:3
     volumes:
       - /var/data/funkwhale/data/redis:/data
+    networks:
+      - internal
 
   celeryworker:
     restart: unless-stopped
@@ -48,6 +54,8 @@ services:
     volumes:
       - "${MUSIC_DIRECTORY_SERVE_PATH-/srv/funkwhale/data/music}:${MUSIC_DIRECTORY_PATH-/music}:ro"
       - "${MEDIA_ROOT}:${MEDIA_ROOT}"
+    networks:
+      - internal
 
   celerybeat:
     restart: unless-stopped
@@ -57,6 +65,8 @@ services:
     links:
       - postgres
       - redis
+    networks:
+      - internal
 
   api:
     restart: unless-stopped
@@ -73,6 +83,8 @@ services:
     links:
       - postgres
       - redis
+    networks:
+      - internal
 
   funkwhale-frontend:
     image: nginx:1.15.2-alpine
@@ -97,3 +109,12 @@ services:
       - 8881:80
     expose: 
       - "8080"
+    networks:
+      - proxy
+      - internal
+
+      
+networks:
+  internal:
+  proxy:
+
