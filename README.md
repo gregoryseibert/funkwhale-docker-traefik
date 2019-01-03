@@ -1,4 +1,4 @@
-# funkwhale-docker-traefik
+# funkwhale-docker-traefik (currently unmaintained and not up-to-date)
 A collection of files for a funkwhale setup with docker and traefik reverse proxy
 
 The funkwhale-frontend has to be in the same network as traefik (as well as other containers, which should be reverse proxied with traefik).
